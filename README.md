@@ -37,7 +37,7 @@ sequenceDiagram
 
 El flujo de procesamiento se resume en el diagrama anterior y sus etapas se indican en la siguiente tabla.
 El procesamiento se ejecuta corriendo el script [`run_tests.R`](run_tests.R) con ciertos parámetros definidos por el usuario.
-Este script internamente ejecuta la validación de las baterías del registro de personas (RPH, script [`04_rph_estructural_hs.R`](04_rph_estructural_hs.R)) y de educación (EDU, script [`09_educacion_estructural_hs.R`](09_educacion_estructural_hs.R)).
+Este script internamente ejecuta la validación de las baterías del registro de personas (RPH, script [`04_rph_estructural.R`](04_rph_estructural.R)) y de educación (EDU, script [`09_educacion_estructural.R`](09_educacion_estructural.R)).
 Los resultados de cada validación se combinan a continuación para generar reportes en dos formatos: a nivel de persona y agregado por regla de validación (tipo de error).
 
 | Etapa                   | Detalle                                                           |
