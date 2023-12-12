@@ -1,6 +1,13 @@
 # eficiencia-censo-validacion
 Repositorio para almacenar y compartir material relacionado a mejorar la eficiencia en la etapa de validación de datos del Censo 2024
 
+Para clonar este repositorio, ejecutar localmente el comando:
+
+```
+git clone https://github.com/mentoria-censo/eficiencia-censo-validacion.git
+```
+
+
 ## Etapas de procesamiento
 
 ```mermaid
@@ -59,7 +66,7 @@ El script [`run_tests.R`](run_tests.R) puede ser ejecutado ajustando los valores
 | (3) Aumento de errores en validación: <br> modificando artificialmente dataset original | errores_aumentado | no, 10e6, 20e6, 30e6, 40e6 |
 
 En el caso del parámetro `tipo_particion`, los valores indicados corresponden a las columnas usadas para crear el dataset particionado. 
-En tanto que los valores evaluados para el parámetro `errores_aumentado` llevan el prefijo "err_aum_" e indican la cantidad de errores que fueron introducidos aleatoriamente en el dataset original. 
+Los valores evaluados para el parámetro `errores_aumentado` indican la cantidad de errores que fueron introducidos aleatoriamente en el dataset original y se definen usando prefijo "err_aum_" seguido por el valor indicado en la tabla. 
 
 ## Resultados de procesamiento
 
