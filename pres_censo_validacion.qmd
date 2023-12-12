@@ -1,0 +1,214 @@
+---
+# title: "Capacitación en R y herramientas de productividad"
+# author: "Abril 2021"
+format:
+  revealjs:
+    auto-stretch: false
+    margin: 0
+    slide-number: true
+    scrollable: true
+    preview-links: auto
+    logo: imagenes/logo_portada2.png
+    css: ine_quarto_styles.css
+    # footer: <https://quarto.org>
+---
+
+#
+
+<!---
+# TODO: this does not work
+ .linea-superior[]
+.linea-inferior[] 
+--->
+
+<!---
+# TODO: this does not work
+ ![](imagenes/logo_portada2.png){.center style="width: 20%;"}   
+--->
+
+[]{.linea-superior} 
+[]{.linea-inferior} 
+
+<!---
+ <img src="imagenes/logo_portada2.png" style="width: 20%"/>  
+--->
+
+<img src="imagenes/logo_portada2.png" width="20%"/>  
+
+[**Eficiencia Censo: Proceso de Validación**]{.big-par .center-justified}
+
+[**Proyecto Ciencia de Datos**]{.big-par .center-justified}
+
+[**Diciembre 2023**]{.big-par .center-justified}
+
+
+
+## Tabla de contenidos 
+
+<br>
+
+<!-- ::: {.incremental .big-par} -->
+
+- **Problema y desafíos** <br><br>
+- **Tests implementados** <br><br>
+- **Etapas de procesamiento** <br><br>
+- **Resultados** <br><br> 
+
+<!-- ::: -->
+
+
+## Problema y desafíos
+
+<p class="box-empty"><span > </span></p>
+<br>
+
+La información censada requiere ser revisada, mediante la **creación de variables auxiliares** que se utilizan **para validar** los datos. <br><br>
+
+. . .
+
+<p class="box-empty"><span > </span></p>
+
+El proceso de **validación**: <br>
+
+::: {.incremental .medium-par}
+- Consiste en la aplicación validadores de diferentes baterías. <br>
+- Involucra la generación de un **gran volumen de datos, potencialmente >> data original**. <br><br>
+:::
+
+. . .
+
+<p class="box-empty"><span > </span></p>
+
+Aquí analizamos la eficiencia del proceso de validación para las baterías del **registro de personas del hogar** y **de educación**, implementando y evaluando diferentes tests en las distintas etapas del procesamiento. <br>
+
+
+## Tests implementados
+
+<!-- <br> -->
+
+<!-- <p class="box-empty"><span > </span></p>
+
+[Evaluamos diferentes escenarios de procesamiento: variando la]{.lightgray} **herramienta usada** [, el volumen de los datos y la cantidad de variables auxiliares creadas, en diferentes etapas.]{.lightgray} 
+
+. . . -->
+
+::: {.medium-par}
+
+<br><br>
+
+<p class="box-empty"><span > </span></p>
+<!-- [""]{.box} -->
+
++-----------------------------------------------------------------+----------------------------------+
+| Test                                                            | Variables evaluadas              |
++=================================================================+==================================+
+| Uso de función de validación implementada en Arrow              | True, False                      |
+|                                                                 |                                  |
++-----------------------------------------------------------------+----------------------------------+
+| Particionamiento de input dataset usando variables geográficas: | región, provincia, comuna        |
+|                                                                 |                                  |
++-----------------------------------------------------------------+----------------------------------+
+| Aumento de errores en validación: <br>                          | ~10e6, ~20e6, ~30e6, ~40e6 <br>  |
+| modificando artificialmente dataset original                    | errores                          |
++-----------------------------------------------------------------+----------------------------------+
+
+::: 
+
+
+## Etapas de procesamiento
+
+<br><br>
+
+<!-- <p class="box-empty"><span > </span></p>
+
+[Evaluamos diferentes escenarios de procesamiento: variando la herramienta usada, el volumen de los datos y la cantidad de variables auxiliares creadas, en]{.lightgray} **diferentes etapas.** 
+
+. . . -->
+
+::: {.medium-par}
+
+<p class="box-empty"><span > </span></p>
+
++-------------------------+--------------------------------------------------------------------------+
+| Etapa                   | Detalle                                                                  |
++=========================+==========================================================================+
+| Validación RPH          | Aplicación de validadores de la batería del registro de personas         |
+|                         |                                                                          |
++-------------------------+--------------------------------------------------------------------------+
+| Validación EDU          | Aplicación de validadores de la batería de educación                     |
+|                         |                                                                          |
++-------------------------+--------------------------------------------------------------------------+
+| Combinar data validada  | Se combina data validada de ambas baterías                               |
+|                         |                                                                          |
++-------------------------+--------------------------------------------------------------------------+
+| Reporte nivel persona   | Creación de reporte de validación a nivel de persona                     |
+|                         |                                                                          |
++-------------------------+--------------------------------------------------------------------------+
+| Reporte agregado        | Creación de reporte de validación agregado por regla de validación       |
+|                         |                                                                          |
++-------------------------+--------------------------------------------------------------------------+
+
+:::
+
+## Etapas de procesamiento
+
+```{mermaid}
+sequenceDiagram
+  participant run as run_tests.R
+  participant rph_val as 04_rph_val_est.R  
+  participant rph as 04_rph_estructural.R
+  participant edu_val as 09_educacion_val_est.R  
+  participant edu as 09_educacion_estructural.R
+  Note over run: arg: tipo_particion <br> (0: no, 1: region, 2: 1+provincia, 3: 2+comuna) 
+  Note over run: arg: usar_arrow (TRUE, FALSE)
+  Note over run: arg: errores_aumentado (no, 20e6, 30e6, 40e6)
+  rect rgb(191, 223, 255)
+  run ->> rph: args (tipo_particion, usar_arrow, errores_aumentado)
+  rph_val ->> rph: rango, asignacion
+  Note over run,rph: 1) Validación RPH
+  end
+  rect rgb(191, 223, 255)  
+  run ->> edu: args (tipo_particion, usar_arrow, errores_aumentado)
+  edu_val ->> edu: rango, asignacion
+  Note over run,edu: 2) Validación EDU  
+  end
+  Note over run: 3) Combinar data validada
+  Note over run: 4) Reporte a nivel persona
+  Note over run: 5) Reporte agregado por error      
+```
+
+
+## Resultados: validación en Arrow
+
+<img src="resultados/test_eficiencia_censo_validacion_with_function_arrow.png" width="100%"/>  
+
+
+## Resultados: particionamiento geográfico
+
+<img src="resultados/test_eficiencia_censo_validacion_with_partitions.png" width="100%"/>  
+
+## Resultados: error aumentado
+
+<img src="resultados/test_eficiencia_censo_validacion_with_augmented_error.png" width="100%"/>  
+
+## Resultados: error aumentado y partición
+
+<img src="resultados/test_eficiencia_censo_validacion_with_augmented_error_by_partition.png" width="100%"/>  
+
+## Resultados: todos los tests
+
+<img src="resultados/test_eficiencia_censo_validacion.png" width="100%"/>  
+
+
+#
+
+<img src="imagenes/logo_portada2.png" width="20%"/>  
+
+[**Eficiencia Censo: Proceso de Validación**]{.big-par .center-justified}
+
+[**Proyecto Ciencia de Datos**]{.big-par .center-justified}
+
+[**Diciembre 2023**]{.big-par .center-justified}
+
+[]{.linea-superior} 
+[]{.linea-inferior} 
