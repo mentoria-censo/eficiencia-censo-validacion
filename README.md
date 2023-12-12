@@ -13,12 +13,12 @@ sequenceDiagram
   Note over run: arg: tipo_particion <br> (0: no, 1: region, 2: 1+provincia, 3: 2+comuna) 
   Note over run: arg: usar_arrow (TRUE, FALSE)
   Note over run: arg: errores_aumentado (no, 20e6, 30e6, 40e6)
-  rect rgb(191, 223, 255)
+  rect rgb(0,255,255)
   run ->> rph: args (tipo_particion, usar_arrow, errores_aumentado)
   rph_val ->> rph: rango, asignacion
   Note over run,rph: 1) Validación RPH
   end
-  rect rgb(191, 223, 255)  
+  rect rgb(0,255,255)
   run ->> edu: args (tipo_particion, usar_arrow, errores_aumentado)
   edu_val ->> edu: rango, asignacion
   Note over run,edu: 2) Validación EDU  
