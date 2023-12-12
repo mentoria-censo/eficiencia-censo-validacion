@@ -34,7 +34,7 @@ sequenceDiagram
   rph_val ->> rph: rango, asignacion
   Note over run,rph: 1) Validación RPH
   end
-  rect rgb(255,0,255)
+  rect rgb(128,0,128)
   run ->> edu: args (tipo_particion, usar_arrow, errores_aumentado)
   edu_val ->> edu: rango, asignacion
   Note over run,edu: 2) Validación EDU  
