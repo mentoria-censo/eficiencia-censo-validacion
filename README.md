@@ -7,6 +7,14 @@ Para clonar este repositorio, ejecutar localmente el comando:
 git clone https://github.com/mentoria-censo/eficiencia-censo-validacion.git
 ```
 
+## Estructura del repositorio
+
+Los scripts necesarios para correr el procesamiento se encuentran en el directorio raíz del repositorio, editados a partir de sus versiones originales.
+Dichos scripts originales se encuentran en el directorio [`scripts_originales`](scripts_originales), tal como fueron compartidas.
+
+El directorio [`scripts_extra`](scripts_extra) contiene scripts que pueden usarse para generar artificialmente los datasets necesarios para ejecutar los diferentes tests implementados.
+
+El directorio [`resultados`](resultados) es donde se almacenan los resultados obtenidos al ejecutar los diferentes tests.
 
 ## Etapas de procesamiento
 
