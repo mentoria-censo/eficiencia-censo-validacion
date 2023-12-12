@@ -82,39 +82,6 @@ El proceso de **validación**: <br>
 Aquí analizamos la eficiencia del proceso de validación para las baterías del **registro de personas del hogar** y **de educación**, implementando y evaluando diferentes tests en las distintas etapas del procesamiento. <br>
 
 
-## Tests implementados
-
-<!-- <br> -->
-
-<!-- <p class="box-empty"><span > </span></p>
-
-[Evaluamos diferentes escenarios de procesamiento: variando la]{.lightgray} **herramienta usada** [, el volumen de los datos y la cantidad de variables auxiliares creadas, en diferentes etapas.]{.lightgray} 
-
-. . . -->
-
-::: {.medium-par}
-
-<br><br>
-
-<p class="box-empty"><span > </span></p>
-<!-- [""]{.box} -->
-
-+-----------------------------------------------------------------+----------------------------------+
-| Test                                                            | Variables evaluadas              |
-+=================================================================+==================================+
-| Uso de función de validación implementada en Arrow              | True, False                      |
-|                                                                 |                                  |
-+-----------------------------------------------------------------+----------------------------------+
-| Particionamiento de input dataset usando variables geográficas: | región, provincia, comuna        |
-|                                                                 |                                  |
-+-----------------------------------------------------------------+----------------------------------+
-| Aumento de errores en validación: <br>                          | ~10e6, ~20e6, ~30e6, ~40e6 <br>  |
-| modificando artificialmente dataset original                    | errores                          |
-+-----------------------------------------------------------------+----------------------------------+
-
-::: 
-
-
 ## Etapas de procesamiento
 
 <br><br>
@@ -176,6 +143,41 @@ sequenceDiagram
   Note over run: 4) Reporte a nivel persona
   Note over run: 5) Reporte agregado por error      
 ```
+
+
+## Tests implementados
+
+<!-- <br> -->
+
+<!-- <p class="box-empty"><span > </span></p>
+
+[Evaluamos diferentes escenarios de procesamiento: variando la]{.lightgray} **herramienta usada** [, el volumen de los datos y la cantidad de variables auxiliares creadas, en diferentes etapas.]{.lightgray} 
+
+. . . -->
+
+::: {.small-par}
+
+<br><br>
+
+<p class="box-empty"><span > </span></p>
+<!-- [""]{.box} -->
+
++---------------------------------------------------------------------+------------------------------+----------------------------------+
+| Test                                                                | Parámetro                    | Valores evaluadas              |
++=====================================================================+==============================+==================================+
+| (1) Uso de función de validación implementada en Arrow              | usar_arrow_para_validacion   |   TRUE, FALSE                    |
+|                                                                     |                              |                                  |
++---------------------------------------------------------------------+------------------------------+----------------------------------+
+| (2) Particionamiento de input dataset usando variables geográficas: | tipo_particion               | 0: sin particionar <br>          |
+|                                                                     |                              | 1: region <br>                   |
+|                                                                     |                              | 2: region, provincia <br>        |
+|                                                                     |                              | 3: region, provincia, comuna     |
++---------------------------------------------------------------------+------------------------------+----------------------------------+
+| (3) Aumento de errores en validación: <br>                          | errores_aumentado            | no, 10e6, 20e6, 30e6, 40e6 <br>  |
+| modificando artificialmente dataset original                        |                              |                                  |
++---------------------------------------------------------------------+------------------------------+----------------------------------+
+
+::: 
 
 
 ## Resultados: validación en Arrow

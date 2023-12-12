@@ -388,48 +388,6 @@
 <p>Aquí analizamos la eficiencia del proceso de validación para las baterías del <strong>registro de personas del hogar</strong> y <strong>de educación</strong>, implementando y evaluando diferentes tests en las distintas etapas del procesamiento. <br></p>
 </div>
 </section>
-<section id="tests-implementados" class="slide level2">
-<h2>Tests implementados</h2>
-<!-- <br> -->
-<!-- <p class="box-empty"><span > </span></p>
-
-[Evaluamos diferentes escenarios de procesamiento: variando la]{.lightgray} **herramienta usada** [, el volumen de los datos y la cantidad de variables auxiliares creadas, en diferentes etapas.]{.lightgray} 
-
-. . . -->
-<div class="medium-par">
-<p><br><br></p>
-<p class="box-empty">
-<span> </span>
-</p>
-<!-- [""]{.box} -->
-<table>
-<colgroup>
-<col style="width: 65%">
-<col style="width: 34%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Test</th>
-<th>Variables evaluadas</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Uso de función de validación implementada en Arrow</td>
-<td>True, False</td>
-</tr>
-<tr class="even">
-<td>Particionamiento de input dataset usando variables geográficas:</td>
-<td>región, provincia, comuna</td>
-</tr>
-<tr class="odd">
-<td>Aumento de errores en validación: <br> modificando artificialmente dataset original</td>
-<td>~10e6, ~20e6, ~30e6, ~40e6 <br> errores</td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
 <section id="etapas-de-procesamiento" class="slide level2">
 <h2>Etapas de procesamiento</h2>
 <p><br><br></p>
@@ -510,6 +468,59 @@
 </div>
 </div>
 </div>
+</div>
+</section>
+<section id="tests-implementados" class="slide level2">
+<h2>Tests implementados</h2>
+<!-- <br> -->
+<!-- <p class="box-empty"><span > </span></p>
+
+[Evaluamos diferentes escenarios de procesamiento: variando la]{.lightgray} **herramienta usada** [, el volumen de los datos y la cantidad de variables auxiliares creadas, en diferentes etapas.]{.lightgray} 
+
+. . . -->
+<div class="small-par">
+<p><br><br></p>
+<p class="box-empty">
+<span> </span>
+</p>
+<!-- [""]{.box} -->
+<table style="width:99%;">
+<colgroup>
+<col style="width: 51%">
+<col style="width: 22%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Test</th>
+<th>Parámetro</th>
+<th>Valores evaluadas |</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><ol type="1">
+<li>Uso de función de validación implementada en Arrow</li>
+</ol></td>
+<td>usar_arrow_para_validacion</td>
+<td>TRUE, FALSE</td>
+</tr>
+<tr class="even">
+<td><ol start="2" type="1">
+<li>Particionamiento de input dataset usando variables geográficas:</li>
+</ol></td>
+<td>tipo_particion</td>
+<td>0: sin particionar <br> 1: region <br> 2: region, provincia <br> 3: region, provincia, comuna</td>
+</tr>
+<tr class="odd">
+<td><ol start="3" type="1">
+<li>Aumento de errores en validación: <br> modificando artificialmente dataset original</li>
+</ol></td>
+<td>errores_aumentado</td>
+<td>no, 10e6, 20e6, 30e6, 40e6 <br></td>
+</tr>
+</tbody>
+</table>
 </div>
 </section>
 <section id="resultados-validación-en-arrow" class="slide level2">
