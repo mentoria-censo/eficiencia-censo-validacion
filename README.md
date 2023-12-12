@@ -76,7 +76,7 @@ Para el parámetro `errores_aumentado`, los valores evaluados indican la cantida
 ## Resultados de procesamiento
 
 Al final de cada ejecución del script [`run_tests.R`](run_tests.R), se imprime un dataframe con los tiempos en que las diferentes etapas del procesamiento fueron completadas.
-Estos resultados también son almacenados en un archivo xlsx en el directorio [`resultados/tiempo_censo_validacion`](resultados/tiempo_censo_validacion/). El archivo xlsx se crea si no existe y los resultados se escriben a una nueva hoja.
+Estos resultados también son almacenados en el archivo "tiempo_censo_validacion.xlsx" en el directorio [`resultados`](resultados). Este archivo xlsx se crea si no existe y los resultados son escritos a una nueva hoja. Ver archivo [`tiempo_censo_validacion_05.xlsx`](resultados/tiempo_censo_validacion_05.xlsx), incluido a modo de ejemplo.
 
 Los resultados de tiempos de procesamiento para los tests implementados se resumen en los plots en el directorio [`resultados/*.png`](resultados). Estos plots también están incluidos en la presentación compartida y son creados por el script [`plot_execution_times.R`](scripts_extra/plot_execution_times.R), que usa como input el archivo xlsx antes mencionado.
 
