@@ -59,8 +59,8 @@ library(feather)
 library(arrow)
 
 ########## CARGAR FUNCIONES Y VALIDADORES -------------------------------------------------
-source(file = paste0(ubi_func,"funciones_validaciones_hs.R"), encoding = "UTF-8")
-source(file = paste0(ubi_val,"09_educacion_val_est_hs.R"), encoding = "UTF-8")
+source(file = paste0(ubi_func,"funciones_validaciones.R"), encoding = "UTF-8")
+source(file = paste0(ubi_val,"09_educacion_val_est.R"), encoding = "UTF-8")
 
 # # stop script execution
 # quit(save="no")
@@ -202,7 +202,7 @@ if (particion != "no") {
     partitioning=cols_partition
   )
 } else {
-  path_dataset <- paste0(dir_out,"/09_educacion_estructural_hs.feather")
+  path_dataset <- paste0(dir_out,"/09_educacion_estructural.feather")
   print(paste0("escribiendo dataset validado, no particionado, a: ",path_dataset))
   arrow::write_feather(
     vals_09_educacion,

@@ -23,7 +23,7 @@ dir_in <- "data"
 dir_out <- "resultados"
 
 Rpath <- "/home/hugosoto/anaconda3/envs/r_ine/bin/Rscript"
-source(file="funciones_validaciones_hs.R", encoding = "UTF-8")
+source(file="funciones_validaciones.R", encoding = "UTF-8")
 
 # definir parametros para test
 test_parametros <- list()
@@ -32,8 +32,8 @@ test_parametros <- list()
 test_parametros$arg_iteracion <- "03"
 
 # definir scripts
-test_parametros$script_04 <- "04_rph_estructural_hs.R"
-test_parametros$script_09 <- "09_educacion_estructural_hs.R"
+test_parametros$script_04 <- "04_rph_estructural.R"
+test_parametros$script_09 <- "09_educacion_estructural.R"
 
 # definir particionado de dataset
 # test_parametros$tipo_particion <- "0" # cols: c()
@@ -129,7 +129,7 @@ if (particion != "no") {
 } else {
   #
   # read data rph
-  path_dataset_04 <- paste0(dir_out,"/04_rph_estructural_hs.feather")
+  path_dataset_04 <- paste0(dir_out,"/04_rph_estructural.feather")
   print(paste0("leyendo dataset validado, no particionado, desde: ",path_dataset_04))
   data_validado_04 <- arrow::read_feather(
     path_dataset_04,
@@ -138,7 +138,7 @@ if (particion != "no") {
   print(dim(data_validado_04))
   #
   # read data educación
-  path_dataset_09 <- paste0(dir_out,"/09_educacion_estructural_hs.feather")
+  path_dataset_09 <- paste0(dir_out,"/09_educacion_estructural.feather")
   print(paste0("leyendo dataset validado, no particionado, desde: ",path_dataset_09))
   data_validado_09 <- arrow::read_feather(
     path_dataset_09,
