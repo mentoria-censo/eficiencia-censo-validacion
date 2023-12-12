@@ -3,7 +3,7 @@ Repositorio para almacenar y compartir material relacionado a mejorar la eficien
 
 ## Etapas de procesamiento
 
-```{mermaid}
+```mermaid
 sequenceDiagram
   participant run as run_tests.R
   participant rph_val as 04_rph_val_est.R  
