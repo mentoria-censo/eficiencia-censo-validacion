@@ -51,11 +51,8 @@ Los resultados de cada validación se combinan a continuación para generar repo
 
 ## Ejecución de tests
 
-Para poder ejecutar los tests, el primer paso es clonar este repositorio en la máquina que será utilizada para el procesamiento.
-
-Luego se deben descargar los datasets que son usados por los diferentes scripts desde el siguiente link: 
-[01_base_censo_publicada](https://inechile-my.sharepoint.com/:f:/g/personal/hesotop_ine_gob_cl/ElGhFSiQj6RMhkjWfSXLJEMB7WSehYdJpSNiHI6ENDlqWA?e=LCJjQS) <br>
-Una vez se ha completado la descarga, es necesario copiar el contenido de la carpeta descargada al directorio [`data`](data/) del repositorio clonado, que contiene un archivo `info` de referencia.
+**NOTA:** Para poder reproducir los resultados de los tests, es necesario contar con el dataset original pero además con los datasets que fueron creados artificialmente para los diferentes tests implementados: datasets particionados y con errores aumentados.
+Estos datasets pueden ser compartidos a pedido y deben ser copiados al directorio [`data`](data/) del repositorio clonado. El archivo [`info`](data/info) contiene los nombres esperados de estos datasets.
 
 El script [`run_tests.R`](run_tests.R) puede ser ejecutado ajustando los valores de ciertos parámetros dentro del script, cuyos valores se definen como strings y se indican en la siguiente tabla de acuerdo al tipo de **Test** ejecutado. <br>
 
@@ -65,8 +62,8 @@ El script [`run_tests.R`](run_tests.R) puede ser ejecutado ajustando los valores
 | (2) Particionamiento de input dataset usando variables geográficas:  | tipo_particion | 0: sin particionar <br> 1: region <br> 2: region, provincia <br> 3: region, provincia, comuna |
 | (3) Aumento de errores en validación: <br> modificando artificialmente dataset original | errores_aumentado | no, 10e6, 20e6, 30e6, 40e6 |
 
-En el caso del parámetro `tipo_particion`, los valores indicados corresponden a las columnas usadas para crear el dataset particionado. 
-Los valores evaluados para el parámetro `errores_aumentado` indican la cantidad de errores que fueron introducidos aleatoriamente en el dataset original y se definen usando prefijo "err_aum_" seguido por el valor indicado en la tabla. 
+En el caso del parámetro `tipo_particion`, los valores indicados corresponden a las columnas usadas para crear los datasets particionados. 
+Para el parámetro `errores_aumentado`, los valores evaluados indican la cantidad de errores que fueron introducidos aleatoriamente en el dataset original y se definen usando el prefijo "err_aum_" seguido por el valor indicado en la tabla.
 
 ## Resultados de procesamiento
 
