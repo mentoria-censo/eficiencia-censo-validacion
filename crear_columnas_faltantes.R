@@ -13,10 +13,10 @@ library(arrow)
 library(tidyverse)
 library(stringr)
 
-source(file="funciones_validaciones_hs.R", encoding = "UTF-8")
+source(file="../funciones_validaciones_hs.R", encoding = "UTF-8")
 
 # dataset adapted for validation
-filename <- "/home/hugosoto/Work/git/eficiencia-censo-validacion/data/persona2017_adaptado.feather"
+filename <- "../data/persona2017_adaptado.feather"
 
 persona <- arrow::read_feather(
   filename,
@@ -53,8 +53,8 @@ persona <- agregar_columna_modalidad(persona)
 #   )
 
 # write adapted dataset with entrevista_id
-# file_out <- "data/persona2017_adaptado_geo"
-file_out <- "data/persona2017_adaptado_geo_modalidad"
+# file_out <- "../data/persona2017_adaptado_geo"
+file_out <- "../data/persona2017_adaptado_geo_modalidad"
 arrow::write_csv_arrow(
   persona,
   file=paste0(file_out,".csv")

@@ -15,13 +15,13 @@ library(tidyverse)
 library(stringr)
 
 ########## TRANSFORMAR VALIDADORES A DATA FRAME ---------------------------------------------------
-source(file = "funciones_validaciones_hs.R", encoding = "UTF-8")
+source(file = "../funciones_validaciones_hs.R", encoding = "UTF-8")
 
-source(file = "04_rph_val_est_hs.R", encoding = "UTF-8")
+source(file = "../04_rph_val_est_hs.R", encoding = "UTF-8")
 rango_rph <- fn_list_dt(lista = rango, val = "rph_ran", validador = "Rango")
 asignacion_rph <- fn_list_dt(lista = asignacion, val = "rph_asi", validador = "Asignacion")
 
-source(file = "09_educacion_val_est_hs.R", encoding = "UTF-8")
+source(file = "../09_educacion_val_est_hs.R", encoding = "UTF-8")
 rango_edu <- fn_list_dt(lista = rango, val = "edu_ran", validador = "Rango")
 asignacion_edu <- fn_list_dt(lista = asignacion, val = "edu_asi", validador = "Asignacion")
 
@@ -33,8 +33,8 @@ reglas <- list(
 )
 
 # dataset adapted for validation
-# filename <- "data/persona2017_adaptado_geo.feather"
-filename <- "data/persona2017_adaptado_geo_modalidad.feather"
+# filename <- "../data/persona2017_adaptado_geo.feather"
+filename <- "../data/persona2017_adaptado_geo_modalidad.feather"
 
 data <- arrow::read_feather(
   filename,
@@ -97,8 +97,8 @@ for (r in names(reglas)) {
 }
 
 # write adapted dataset with entrevista_id
-# file_out <- "data/persona2017_adaptado_geo_err_aum"
-file_out <- "data/persona2017_adaptado_geo_modalidad_err_aum"
+# file_out <- "../data/persona2017_adaptado_geo_err_aum"
+file_out <- "../data/persona2017_adaptado_geo_modalidad_err_aum"
 # arrow::write_csv_arrow(
 #   data_err,
 #   file=paste0(file_out,".csv")

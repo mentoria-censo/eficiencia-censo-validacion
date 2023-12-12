@@ -15,7 +15,7 @@ library(tidyverse)
 library(stringr)
 library(dplyr)
 
-path_results <- "resultados/"
+path_results <- "../resultados/"
 
 etapas <- c(
   "validar_rph",
