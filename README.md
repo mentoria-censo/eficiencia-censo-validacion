@@ -28,23 +28,10 @@ sequenceDiagram
   Note over run: 5) Reporte agregado por error      
 ```
 
-## Resultados de procesamiento
-
-Los resultados de tiempos de procesamiento para las herramientas testeadas se muestran en la figura:
-
-[`03_resultados/01_tiempo_procesamiento/test_all.png`](03_resultados/01_tiempo_procesamiento/test_all.png)
-
-Estos resultados fueron obtenidos en una máquina que cuenta con las siguientes características:
-
-- S.O.: Linux, Ubuntu 22.04.3 LTS (jammy)
-- RAM: 16 GB.
-- CPU: 32 núcleos.
-- Python: v3.11.4
-- R: v4.3.1
-
-## Etapas de procesamiento
-
-En la siguiente tabla se muestran las herramientas de procesamiento que han sido testeadas para producir los resultados aquí presentados. 
+La siguiente tabla resume las etapas del procesamiento que se muestran en el diagrama anterior.
+El proceso comienza ejecutando el script [`run_tests.R`](run_tests.R) con ciertos parámetros definidos por el usuario.
+Este script internamente ejecuta la validación de las baterías del registro de personas (RPH, script [`04_rph_estructural_hs.R`](04_rph_estructural_hs.R)) y de educación (EDU, script [`09_educacion_estructural_hs.R`](09_educacion_estructural_hs.R)).
+El resultado de estas validaciones se combina a continuación para generar reportes en dos formatos: a nivel de persona y agregado por regla de validación (tipo de error).
 
 | Etapa                   | Detalle                                                           |
 |-------------------------|-------------------------------------------------------------------|
@@ -61,41 +48,30 @@ Para poder ejecutar los tests, el primer paso es clonar este repositorio en la m
 
 Luego se deben descargar los datasets que son usados por los diferentes scripts desde el siguiente link: 
 [01_base_censo_publicada](https://inechile-my.sharepoint.com/:f:/g/personal/hesotop_ine_gob_cl/ElGhFSiQj6RMhkjWfSXLJEMB7WSehYdJpSNiHI6ENDlqWA?e=LCJjQS) <br>
-Una vez se ha completado la descarga, es necesario copiar el contenido de la carpeta descargada al directorio [`01_base_censo_publicada`](01_base_censo_publicada/) del repositorio clonado, que contiene un archivo `info` de referencia.
+Una vez se ha completado la descarga, es necesario copiar el contenido de la carpeta descargada al directorio [`data`](data/) del repositorio clonado, que contiene un archivo `info` de referencia.
 
+El script [`run_tests.R`](run_tests.R) puede ser ejecutado ajustando los valores de ciertos parámetros dentro del script, cuyos valores se definen como strings y se indican en la siguiente tabla de acuerdo al tipo de **Test** ejecutado. <br>
 
-Cada script en la tabla anterior puede ser ejecutado ajustando los valores de dos parámetros dentro del script: `arg_data_aumentado`, `arg_variables_aumentadas`.
-Los valores de estos parámetros determinan el tipo de **Test** que se ejecuta, según se muestra en la siguiente tabla. <br>
+| Test                                                             | Parámetro | Valores evaluadas             |
+|-|-|-|
+| (1) Uso de función de validación implementada en Arrow               | usar_arrow_para_validacion | TRUE, FALSE                     |
+| (2) Particionamiento de input dataset usando variables geográficas:  | tipo_particion | 0: sin particionar <br> 1: region <br> 2: region, provincia <br> 3: region, provincia, comuna |
+| (3) Aumento de errores en validación: <br> modificando artificialmente dataset original | errores_aumentado | no, 10e6, 20e6, 30e6, 40e6 |
 
-| Test                                                             | Variables evaluadas             |
-|------------------------------------------------------------------|---------------------------------|
-| (1) Uso de función de validación implementada en Arrow               | True, False                     |
-| (2) Particionamiento de input dataset usando variables geográficas:  | región, provincia, comuna       |
-| (3) Aumento de errores en validación: <br> modificando artificialmente dataset original | ~10e6, ~20e6, ~30e6, ~40e6 <br> errores |
+En el caso del parámetro `tipo_particion`, los valores indicados corresponden a las columnas usadas para crear el dataset particionado. 
+En tanto que los valores evaluados para el parámetro `errores_aumentado` llevan el prefijo "err_aum_" e indican la cantidad de errores que fueron introducidos aleatoriamente en el dataset original. 
 
-Más detalles sobre ambos ambos parámetros son descritos a continuación.
+## Resultados de procesamiento
 
-(1) El parámetro `arg_data_aumentado` controla **volumen de los datos** que se procesarán en el test. Lo que a su vez define el dataset que será leído por cada script (csv o feather, dependiendo de la herramienta usada). <br>
-Este parámetro toma uno de los siguientes valores:
-
-`"data_no_aumentado"`: dataset original. Archivos leídos:
-  - Microdato_Censo2017-Personas__data_no_aumentado.csv
-  - Microdato_Censo2017-Personas__data_no_aumentado_arrow_withnrow.feather
-
-`"data_aumentado_05M"`: dataset aumentado artificialmente en 5 millones de registros. Archivos leídos:
-  - Microdato_Censo2017-Personas__data_aumentado_05M.csv
-  - Microdato_Censo2017-Personas__data_aumentado_05M_arrow_withnrow.feather
-
-`"data_aumentado_10M"`: dataset aumentado artificialmente en 10 millones de registros. Archivos leídos:
-  - Microdato_Censo2017-Personas__data_aumentado_10M.csv
-  - Microdato_Censo2017-Personas__data_aumentado_10M_arrow_withnrow.feather
-
-(2) El parámetro `arg_variables_aumentadas` controla el **número de variables auxiliares** que serán creadas durante el test. Este parámetro toma uno de los siguientes valores:
-
-`"FALSE"`: se mantiene el número de variables auxiliares creadas en el test original (Test "Sin Aumentar") <br>
-`"TRUE"`: se aumenta al doble el número de variables auxiliares creadas, comparado al test original.
-
-## Almacenado de resultados
-
-Al final de cada ejecución del script [`run_test.R`](run_test.R), se imprime un dataframe con los tiempos en que las diferentes etapas del procesamiento fueron completadas.
+Al final de cada ejecución del script [`run_tests.R`](run_tests.R), se imprime un dataframe con los tiempos en que las diferentes etapas del procesamiento fueron completadas.
 Estos resultados también son almacenados en un archivo xlsx en el directorio [`resultados/tiempo_censo_validacion`](resultados/tiempo_censo_validacion/). El archivo xlsx se crea si no existe y los resultados se escriben a una nueva hoja.
+
+Los resultados de tiempos de procesamiento para los tests implementados se resumen en los plots en el directorio [`resultados/*.png`](resultados). Estos plots también están incluidos en la presentación compartida y son creados por el script [`plot_execution_times.R`](scripts_extra/plot_execution_times.R), que usa como input el archivo xlsx antes mencionado.
+
+Estos resultados fueron obtenidos en una máquina que cuenta con las siguientes características:
+
+- S.O.: Linux, Ubuntu 22.04.3 LTS (jammy)
+- RAM: 16 GB.
+- CPU: 32 núcleos.
+- Python: v3.11.4
+- R: v4.3.1
